@@ -32,6 +32,6 @@ Tehnologii folosite:
 TODO
 
 
-Minut laborator 5: TODO   
+[Minut laborator 5](minut.txt)  
 SDD: TODO  
 
