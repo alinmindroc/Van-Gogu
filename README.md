@@ -29,7 +29,8 @@ Taran Alexandra
 [Linkedin](https://ro.linkedin.com/in/alextaran)
 
 Tehnologii folosite:  
-TODO
+Server: Python(PIL, NumPy)
+Client: AngularJS, HTML, CSS, Javascript
 
 
 [Minut laborator 5](minut.txt)  
