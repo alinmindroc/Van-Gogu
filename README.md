@@ -33,5 +33,5 @@ TODO
 
 
 [Minut laborator 5](minut.txt)  
-SDD: TODO  
+SDD: https://goo.gl/6EAwZ8  
 
