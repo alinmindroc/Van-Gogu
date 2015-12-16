@@ -35,4 +35,5 @@ Client: AngularJS, HTML, CSS, Javascript
 
 [Minut laborator 5](minut.txt)  
 SDD: https://goo.gl/6EAwZ8  
+Gantt: TODO Miri/Mada  
 
