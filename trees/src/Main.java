@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -7,22 +8,16 @@ import javax.swing.JPanel;
 public class Main extends JPanel {
 	public void paint(Graphics g1) {
 		Graphics2D g = (Graphics2D) g1;
-		Tree t = new Tree(new Vector2(400, 600), g);
+		g1.setColor(new Color(93, 46, 16));
+		Tree t1 = new Tree(new Vector2(500, 900), g);
+		t1.draw(this);
 
-		//draw leaves
-		for (Leaf l : t.leaves) {
-			l.draw(g, this);
-		}
-		
-		//grow branches
-		for (int i = 0; i < 500; i++) {
-			t.grow();
-		}
-
-		//draw branches
-		for (Branch b : t.branches.values()) {
-			b.draw(g);
-		}
+//		g1.setColor(Color.blue);
+//		Tree t2 = new Tree(new Vector2(360, 700), g);
+//		t2.draw(this);
+//
+//		Tree t3 = new Tree(new Vector2(550, 775), g);
+//		t3.draw(this);
 	}
 
 	public static void main(String[] a) {
@@ -31,7 +26,7 @@ public class Main extends JPanel {
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		f.setContentPane(new Main());
-		f.setSize(800, 1000);
+		f.setSize(1000, 1000);
 		f.setVisible(true);
 	}
 }

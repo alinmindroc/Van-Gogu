@@ -1,4 +1,6 @@
 import java.awt.Graphics;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.File;
@@ -12,7 +14,7 @@ public class Leaf {
 	static BufferedImage img;
 	static {
 		try {
-			img = colorImage(ImageIO.read(new File("leaf.png")));
+			img = ImageIO.read(new File("leaf.png"));
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -26,10 +28,11 @@ public class Leaf {
 		Random rand = new Random();
 
 		int r, g, b;
-		r = rand.nextInt(256);
-		g = rand.nextInt(256);
+		r = 150 + rand.nextInt(100);
+		g = 80 + rand.nextInt(80);
 		b = rand.nextInt(256);
-		
+//		b = 0;
+
 		for (int xx = 0; xx < width; xx++) {
 			for (int yy = 0; yy < height; yy++) {
 				int[] pixels = raster.getPixel(xx, yy, (int[]) null);
@@ -57,7 +60,28 @@ public class Leaf {
 		return "L " + position.toString();
 	}
 
+	public BufferedImage rotate(BufferedImage bufferedImage, double radians) {
+		AffineTransform transform = new AffineTransform();
+		transform.rotate(radians, bufferedImage.getWidth() / 2,
+				bufferedImage.getHeight() / 2);
+		AffineTransformOp op = new AffineTransformOp(transform,
+				AffineTransformOp.TYPE_BILINEAR);
+		return op.filter(bufferedImage, null);
+	}
+
 	public void draw(Graphics g, JComponent component) {
-		g.drawImage(colorImage(img), (int) position.x, (int) position.y, 20, 20, component);
+		double branchAngle;
+		if (closestBranch != null) {
+			Vector2 avgDirection = closestBranch.originalGrowDirection
+					.divide(closestBranch.growCount);
+
+			branchAngle = Math.atan2(avgDirection.y, avgDirection.x);
+		} else {
+			branchAngle = 0;
+			System.out.println("leaf has no parent branch");
+		}
+		g.drawImage(rotate(colorImage(img), branchAngle),
+				(int) position.x - 10, (int) position.y - 10, 20, 20, component);
+		// g.drawRect((int) position.x, (int) position.y, 5, 5);
 	}
 }

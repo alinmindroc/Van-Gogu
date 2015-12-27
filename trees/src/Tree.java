@@ -7,9 +7,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.JComponent;
+
 public class Tree {
 	public Point rotatePoint(Point pt, Point center, double angleDeg) {
-		if(angleDeg == 0)
+		if (angleDeg == 0)
 			return pt;
 		double angleRad = (angleDeg / 180) * Math.PI;
 		double cosAngle = Math.cos(angleRad);
@@ -26,16 +28,21 @@ public class Tree {
 
 	Vector2 position = new Vector2(0, 0);
 
-	int leafCount = 200;
-	int treeWidth = 200;
-	int treeHeight = 300;
+	int leafCount = 800;
+	int treeWidth = 500;
+	int treeHeight = 500;
 	int trunkHeight = 100;
-	int minDistance = 4;
-	int maxDistance = 40;
-	int branchLength = 2;
 
+	int minDistance = 5;
+	int maxDistance = 1000;
+	int branchLength = 5;
+
+	int maxBranchGrowCount;
+	
 	Branch root;
 	List<Leaf> leaves;
+	List<Leaf> leavesCopy;
+
 	HashMap<Vector2, Branch> branches;
 
 	Rectangle crown;
@@ -54,6 +61,25 @@ public class Tree {
 		System.out.println(branches);
 	}
 
+	public void draw(JComponent comp) {
+		// grow branches
+		for (int i = 0; i < 1000; i++) {
+			grow();
+		}
+
+		// draw branches
+		for (Branch b : branches.values()) {
+			b.draw(g, maxBranchGrowCount);
+			if(maxBranchGrowCount < b.accumulatedGrowCount)
+				maxBranchGrowCount = b.accumulatedGrowCount;
+		}
+
+		// draw leaves
+		for (Leaf l : leavesCopy) {
+			l.draw(g, comp);
+		}
+	}
+
 	private void generateCrown() {
 		crown = new Rectangle((int) position.x - treeWidth / 2,
 				(int) position.y - treeHeight - trunkHeight + 20, treeWidth,
@@ -61,11 +87,28 @@ public class Tree {
 
 		List<Point> pts = new ArrayList<>();
 
-		pts.add(new Point(crown.x, crown.y + 50));
+		pts.add(new Point(crown.x + crown.width / 4, crown.y + 200));
 		pts.add(new Point(crown.x + crown.width / 2, crown.y - 20 + 10));
-		pts.add(new Point(crown.x + crown.width, crown.y + 50));
-		pts.add(new Point(crown.x + crown.width - 50, crown.y + crown.height - 30));
-		pts.add(new Point(crown.x + 50, crown.y + crown.height - 30));
+		pts.add(new Point(crown.x + 3 * crown.width / 4, crown.y + 200));
+		pts.add(new Point(crown.x + 4 * crown.width / 5, crown.y + crown.height
+				- 50));
+		pts.add(new Point(crown.x + crown.width / 2, crown.y + crown.height));
+		pts.add(new Point(crown.x + crown.width / 5, crown.y + crown.height
+				- 50));
+
+		int x, y, w, h;
+		x = crown.x;
+		y = crown.y;
+		w = crown.width;
+		h = crown.height;
+
+		// pts.add(new Point(x + w/3, y));
+		// pts.add(new Point(x + 2*w/3, y));
+		// pts.add(new Point(x + 4*w/5, y+h/2));
+		// pts.add(new Point(x + 3*w/4, y+h/2-20));
+		// pts.add(new Point(x + w/2, y+h));
+		// pts.add(new Point(x + w/5, y+h - 20));
+		// pts.add(new Point(x + w/4, y+h/2));
 
 		Polygon crownPol = new Polygon();
 
@@ -80,22 +123,22 @@ public class Tree {
 
 		Polygon rotatedCrownPol = new Polygon();
 
-		
 		int rotateDegree = 0;
-		
+
 		for (Point p : pts) {
 			Point r = rotatePoint(p, center, rotateDegree);
 			rotatedCrownPol.addPoint(r.x, r.y);
 		}
 
-//		g.drawPolygon(rotatedCrownPol);
-		
+		// g.drawPolygon(rotatedCrownPol);
+
 		// g.drawPolygon(crownPol);
 
 		// g.drawRect((int) crown.x, (int) crown.y, (int) crown.width,
 		// (int) crown.height);
 
 		leaves = new ArrayList<Leaf>();
+		leavesCopy = new ArrayList<Leaf>();
 
 		Random r = new Random();
 		// Vector2 crownCenter = new Vector2(crown.x + crown.width / 2, crown.y
@@ -107,14 +150,20 @@ public class Tree {
 		while (leaves.size() < leafCount) {
 			int randX, randY;
 
-			randX = r.nextInt(crown.getRight() - crown.getLeft() + 100)
-					+ crown.getLeft() - 100;
-			randY = r.nextInt(crown.getBottom() - crown.getTop() + 100)
-					+ crown.getTop() - 100;
+			randX = (int) (crown.getLeft() + r.nextGaussian()
+					* (crown.getRight() - crown.getLeft()));
+			randY = (int) (crown.getTop() + r.nextGaussian()
+					* (crown.getBottom() - crown.getTop()));
+
+			// randX = r.nextInt(crown.getRight() - crown.getLeft() + 100)
+			// + crown.getLeft() - 100;
+			// randY = r.nextInt(crown.getBottom() - crown.getTop() + 100)
+			// + crown.getTop() - 100;
 
 			if (rotatedCrownPol.contains(randX, randY)) {
 				Leaf leaf = new Leaf(randX, randY);
 				leaves.add(leaf);
+				leavesCopy.add(leaf);
 			}
 		}
 
@@ -172,6 +221,7 @@ public class Tree {
 			boolean leafRemoved = false;
 
 			leaves.get(i).closestBranch = null;
+			leavesCopy.get(i).closestBranch = null;
 			Vector2 direction = new Vector2(0, 0);
 
 			// Find the nearest branch for this leaf
@@ -199,12 +249,14 @@ public class Tree {
 													// determine if it is
 													// the nearest
 				{
-					if (leaves.get(i).closestBranch == null)
+					if (leaves.get(i).closestBranch == null) {
 						leaves.get(i).closestBranch = b;
-					else if ((leaves.get(i).position
-							.subtractNew(leaves.get(i).closestBranch.position))
-							.getLength() > distance)
+						leavesCopy.get(i).closestBranch = b;
+					} else if ((leaves.get(i).position.subtractNew(leaves
+							.get(i).closestBranch.position)).getLength() > distance) {
 						leaves.get(i).closestBranch = b;
+						leavesCopy.get(i).closestBranch = b;
+					}
 				}
 			}
 
@@ -223,6 +275,8 @@ public class Tree {
 																		// of
 																		// branch
 					leaves.get(i).closestBranch.growCount++;
+					leavesCopy.get(i).closestBranch.growDirection.add(dir);
+					leavesCopy.get(i).closestBranch.growCount++;
 				}
 			}
 		}
