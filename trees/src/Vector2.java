@@ -28,7 +28,7 @@ public class Vector2 {
 	}
 
 	public double getLength() {
-		return Math.sqrt(x * x + y * y);
+		return (double) Math.sqrt(x * x + y * y);
 	}
 
 	public void normalize() {
@@ -38,7 +38,7 @@ public class Vector2 {
 	}
 
 	public double distance(Vector2 v) {
-		return Math.sqrt(Math.pow((v.x - x), 2) + Math.pow((v.y - y), 2));
+		return (double) Math.sqrt(Math.pow((v.x - x), 2) + Math.pow((v.y - y), 2));
 	}
 
 	public String toString() {

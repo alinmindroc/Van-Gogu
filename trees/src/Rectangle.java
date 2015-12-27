@@ -1,5 +1,5 @@
 public class Rectangle {
-	double x, y, width, height;
+	int x, y, width, height;
 
 	public Rectangle(int x, int y, int width, int height) {
 		this.x = x;
@@ -8,19 +8,19 @@ public class Rectangle {
 		this.height = height;
 	}
 
-	public double getLeft() {
+	public int getLeft() {
 		return Math.min(x, x + width);
 	}
 
-	public double getRight() {
+	public int getRight() {
 		return Math.max(x, x + width);
 	}
 
-	public double getTop() {
+	public int getTop() {
 		return Math.min(y, y + height);
 	}
 
-	public double getBottom() {
+	public int getBottom() {
 		return Math.max(y, y + height);
 	}
 
