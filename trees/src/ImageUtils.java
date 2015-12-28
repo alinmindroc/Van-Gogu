@@ -1,11 +1,35 @@
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
-import java.util.Random;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class ImageUtils {
+
+	public static void drawToFile(int width, int height, Tree t1, Tree t2) {
+		try {
+			// TYPE_INT_ARGB specifies the image format: 8-bit RGBA packed
+			// into integer pixels
+			BufferedImage bi = new BufferedImage(width, height,
+					BufferedImage.TYPE_INT_ARGB);
+
+			Graphics2D ig2 = bi.createGraphics();
+			ig2.setColor(new Color(93, 46, 16));
+
+			t1.draw(ig2);
+			t2.draw(ig2);
+
+			ImageIO.write(bi, "png", new File("van_gogh.png"));
+		} catch (IOException ie) {
+			ie.printStackTrace();
+		}
+	}
 
 	public static Point rotatePoint(Point pt, Point center, double angleDeg) {
 		if (angleDeg == 0)
@@ -21,11 +45,11 @@ public class ImageUtils {
 		return pt;
 	}
 
-	public static BufferedImage colorImage(BufferedImage image, int r, int g, int b, int a) {
+	public static BufferedImage colorImage(BufferedImage image, int r, int g,
+			int b, int a) {
 		int width = image.getWidth();
 		int height = image.getHeight();
 		WritableRaster raster = image.getRaster();
-
 
 		for (int xx = 0; xx < width; xx++) {
 			for (int yy = 0; yy < height; yy++) {
@@ -33,7 +57,7 @@ public class ImageUtils {
 				pixels[0] = r;
 				pixels[1] = g;
 				pixels[2] = b;
-				if(a > 0)
+				if (a > 0)
 					pixels[3] = a;
 				raster.setPixel(xx, yy, pixels);
 			}

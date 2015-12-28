@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
-import javax.swing.JComponent;
 
 public class Leaf {
 
@@ -36,7 +35,7 @@ public class Leaf {
 		return "L " + position.toString();
 	}
 
-	public void draw(Graphics gfx, JComponent component, int colorSchemeIndex) {
+	public void draw(Graphics gfx, int colorSchemeIndex) {
 		double branchAngle;
 		Vector2 adjPosition = position.addNew(new Vector2(0, -10));
 		if (closestBranch != null) {
@@ -53,7 +52,7 @@ public class Leaf {
 		ColorScheme colorScheme;
 
 		if (colorSchemeIndex == 0) {
-			colorScheme = ColorSchemeFactory.spring(new Random());
+			colorScheme = ColorSchemeFactory.spring();
 		} else if (colorSchemeIndex == 1) {
 			colorScheme = ColorSchemeFactory.summer();
 		} else if (colorSchemeIndex == 2) {
@@ -71,6 +70,6 @@ public class Leaf {
 
 		gfx.drawImage(ImageUtils.rotateImage(
 				ImageUtils.colorImage(img, r, g, b, 0), branchAngle),
-				(int) adjPosition.x, (int) adjPosition.y, 20, 20, component);
+				(int) adjPosition.x, (int) adjPosition.y, 20, 20, null);
 	}
 }

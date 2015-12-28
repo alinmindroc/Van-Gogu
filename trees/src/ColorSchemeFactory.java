@@ -4,7 +4,9 @@ public class ColorSchemeFactory {
 	static int r, g, b;
 	static Random rand;
 
-	public static ColorScheme spring(Random rand) {
+	public static ColorScheme spring() {
+		rand = new Random();
+
 		int p = rand.nextInt(3);
 
 		if (p > 0) {
@@ -22,7 +24,6 @@ public class ColorSchemeFactory {
 
 	public static ColorScheme summer() {
 		rand = new Random();
-		int p = rand.nextInt(3);
 
 		r = 25 + rand.nextInt(20);
 		g = 105 + rand.nextInt(80);

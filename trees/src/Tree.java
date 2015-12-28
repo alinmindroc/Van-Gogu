@@ -7,8 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
-import javax.swing.JComponent;
-
 public class Tree {
 	Vector2 position;
 
@@ -65,7 +63,7 @@ public class Tree {
 		this(position, 800, 500, 500, 100, 5, 800, 4, 0, colorSchemeIndex);
 	}
 
-	public void draw(Graphics g, JComponent comp) {
+	public void draw(Graphics g) {
 		// draw branches
 		for (Branch b : branches.values()) {
 			b.draw(g, this);
@@ -73,7 +71,7 @@ public class Tree {
 
 		// draw leaves
 		for (Leaf l : leavesCopy) {
-			l.draw(g, comp, colorSchemeIndex);
+			l.draw(g, colorSchemeIndex);
 		}
 	}
 
