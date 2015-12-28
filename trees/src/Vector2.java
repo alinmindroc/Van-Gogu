@@ -1,9 +1,16 @@
+import java.awt.Point;
+
 public class Vector2 {
 	public double x, y;
 
 	public Vector2(double x, double y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	public Vector2(Point p){
+		this.x = p.x;
+		this.y = p.y;
 	}
 
 	public Vector2 divide(double d) {

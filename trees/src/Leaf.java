@@ -1,16 +1,17 @@
 import java.awt.Graphics;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 public class Leaf {
+
+	static List<ColorScheme> colorSchemes;
+
 	static BufferedImage img;
 	static {
 		try {
@@ -18,31 +19,6 @@ public class Leaf {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-	}
-
-	private static BufferedImage colorImage(BufferedImage image) {
-		int width = image.getWidth();
-		int height = image.getHeight();
-		WritableRaster raster = image.getRaster();
-
-		Random rand = new Random();
-
-		int r, g, b;
-		r = 150 + rand.nextInt(100);
-		g = 80 + rand.nextInt(80);
-		b = rand.nextInt(256);
-//		b = 0;
-
-		for (int xx = 0; xx < width; xx++) {
-			for (int yy = 0; yy < height; yy++) {
-				int[] pixels = raster.getPixel(xx, yy, (int[]) null);
-				pixels[0] = r;
-				pixels[1] = g;
-				pixels[2] = b;
-				raster.setPixel(xx, yy, pixels);
-			}
-		}
-		return image;
 	}
 
 	public Vector2 position;
@@ -60,28 +36,41 @@ public class Leaf {
 		return "L " + position.toString();
 	}
 
-	public BufferedImage rotate(BufferedImage bufferedImage, double radians) {
-		AffineTransform transform = new AffineTransform();
-		transform.rotate(radians, bufferedImage.getWidth() / 2,
-				bufferedImage.getHeight() / 2);
-		AffineTransformOp op = new AffineTransformOp(transform,
-				AffineTransformOp.TYPE_BILINEAR);
-		return op.filter(bufferedImage, null);
-	}
-
-	public void draw(Graphics g, JComponent component) {
+	public void draw(Graphics gfx, JComponent component, int colorSchemeIndex) {
 		double branchAngle;
+		Vector2 adjPosition = position.addNew(new Vector2(0, -10));
 		if (closestBranch != null) {
-			Vector2 avgDirection = closestBranch.originalGrowDirection
-					.divide(closestBranch.growCount);
+			Vector2 growthDir = adjPosition.subtractNew(closestBranch.position);
+			growthDir.add(new Vector2(0, 10));
+			growthDir.normalize();
 
-			branchAngle = Math.atan2(avgDirection.y, avgDirection.x);
+			branchAngle = Math.atan2(growthDir.y, growthDir.x);
 		} else {
 			branchAngle = 0;
 			System.out.println("leaf has no parent branch");
 		}
-		g.drawImage(rotate(colorImage(img), branchAngle),
-				(int) position.x - 10, (int) position.y - 10, 20, 20, component);
-		// g.drawRect((int) position.x, (int) position.y, 5, 5);
+
+		ColorScheme colorScheme;
+
+		if (colorSchemeIndex == 0) {
+			colorScheme = ColorSchemeFactory.spring(new Random());
+		} else if (colorSchemeIndex == 1) {
+			colorScheme = ColorSchemeFactory.summer();
+		} else if (colorSchemeIndex == 2) {
+			colorScheme = ColorSchemeFactory.autumn();
+		} else if (colorSchemeIndex == 3) {
+			colorScheme = ColorSchemeFactory.christmas();
+		} else {
+			colorScheme = ColorSchemeFactory.alien();
+		}
+
+		int r, g, b;
+		r = colorScheme.r;
+		g = colorScheme.g;
+		b = colorScheme.b;
+
+		gfx.drawImage(ImageUtils.rotateImage(
+				ImageUtils.colorImage(img, r, g, b, 0), branchAngle),
+				(int) adjPosition.x, (int) adjPosition.y, 20, 20, component);
 	}
 }
