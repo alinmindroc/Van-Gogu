@@ -33,7 +33,7 @@ public class Main extends JPanel {
 		t1 = new Tree(new Vector2(500, 900), randVal);
 		t2 = new Tree(new Vector2(700, 900), randVal);
 		l = new Landscape();
-		ImageUtils.drawToFile(1000, 1000, t1, t2);
+		ImageUtils.drawToFile(1000, 1000, t1, t2, l);
 		
 
 		/*JFrame f = new JFrame();

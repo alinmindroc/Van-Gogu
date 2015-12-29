@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 
 public class ImageUtils {
 
-	public static void drawToFile(int width, int height, Tree t1, Tree t2) {
+	public static void drawToFile(int width, int height, Tree t1, Tree t2, Landscape l) {
 		try {
 			// TYPE_INT_ARGB specifies the image format: 8-bit RGBA packed
 			// into integer pixels
@@ -20,6 +20,8 @@ public class ImageUtils {
 					BufferedImage.TYPE_INT_ARGB);
 
 			Graphics2D ig2 = bi.createGraphics();
+
+			l.draw(ig2);
 			ig2.setColor(new Color(93, 46, 16));
 
 			t1.draw(ig2);
