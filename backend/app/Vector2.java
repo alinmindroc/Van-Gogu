@@ -1,3 +1,4 @@
+package app;
 import java.awt.Point;
 
 public class Vector2 {

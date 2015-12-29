@@ -1,3 +1,6 @@
+package app;
+import image_utils.ImageUtils;
+
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Polygon;
@@ -24,6 +27,9 @@ public class Branch {
 	}
 
 	public void draw(Graphics g, Tree t) {
+//		if(parent != null)
+//		g.drawLine((int)position.x, (int)position.y, (int)parent.position.x, (int)parent.position.y);
+//		/*
 		if (parent == null)
 			return;
 
@@ -65,6 +71,7 @@ public class Branch {
 		}
 
 		g.fillPolygon(branchPol);
+//		*/
 	}
 
 	public String toString() {

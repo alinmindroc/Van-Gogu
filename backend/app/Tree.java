@@ -1,3 +1,6 @@
+package app;
+import image_utils.ImageUtils;
+
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Polygon;
@@ -32,11 +35,10 @@ public class Tree {
 
 	Rectangle crown;
 
-	public Tree(Vector2 position, int leafCount, int treeWidth, int treeHeight,
+	public Tree(Vector2 position, int treeWidth, int treeHeight,
 			int trunkHeight, int minDistance, int maxDistance,
 			int branchLength, int crownRotationDegrees, int colorSchemeIndex) {
 		this.position = position;
-		this.leafCount = leafCount;
 		this.treeWidth = treeWidth;
 		this.treeHeight = treeHeight;
 		this.trunkHeight = trunkHeight;
@@ -46,21 +48,26 @@ public class Tree {
 		this.crownRotationDegrees = crownRotationDegrees;
 		this.colorSchemeIndex = colorSchemeIndex;
 
+		Random rand = new Random();
+
+		leafCount = (treeWidth * treeHeight) / (200 + rand.nextInt(100));
+
 		generateCrown();
 		generateTrunk();
 
 		// grow branches
-		for (int i = 0; i < 1000; i++) {
+		int growthSteps = 300;
+		for (int i = 0; i < growthSteps; i++) {
 			grow();
 		}
 	}
 
 	public Tree(Vector2 position) {
-		this(position, 800, 500, 500, 100, 5, 800, 4, 0, 0);
+		this(position, 0);
 	}
 
 	public Tree(Vector2 position, int colorSchemeIndex) {
-		this(position, 800, 500, 500, 100, 5, 800, 4, 0, colorSchemeIndex);
+		this(position, 500, 500, 100, 5, 800, 5, 0, colorSchemeIndex);
 	}
 
 	public void draw(Graphics g) {
@@ -71,7 +78,7 @@ public class Tree {
 
 		// draw leaves
 		for (Leaf l : leavesCopy) {
-			l.draw(g, colorSchemeIndex);
+			l.draw(g);
 		}
 	}
 
@@ -121,7 +128,7 @@ public class Tree {
 					* (crown.getBottom() - crown.getTop()));
 
 			if (rotatedCrownPol.contains(randX, randY)) {
-				Leaf leaf = new Leaf(randX, randY);
+				Leaf leaf = new Leaf(randX, randY, this);
 				leaves.add(leaf);
 				leavesCopy.add(leaf);
 			}

@@ -1,3 +1,4 @@
+package app;
 public class ColorScheme {
 	int r, g, b;
 

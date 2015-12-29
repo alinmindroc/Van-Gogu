@@ -1,31 +1,51 @@
+package image_utils;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.RasterFormatException;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
-public class ImageUtils {
+import app.Landscape;
+import app.Tree;
 
-	public static void drawToFile(int width, int height, Tree t1, Tree t2, Landscape l) {
+public class ImageUtils {
+	public static void drawBackground(int width, int height, Landscape l) {
 		try {
-			// TYPE_INT_ARGB specifies the image format: 8-bit RGBA packed
-			// into integer pixels
 			BufferedImage bi = new BufferedImage(width, height,
 					BufferedImage.TYPE_INT_ARGB);
 
 			Graphics2D ig2 = bi.createGraphics();
 
 			l.draw(ig2);
+
+			ImageIO.write(bi, "png", new File("van_gogh.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void drawTrees(List<Tree> trees) {
+		try {
+			// TYPE_INT_ARGB specifies the image format: 8-bit RGBA packed
+			// into integer pixels
+			BufferedImage bi = ImageIO.read(new File("van_gogh.png"));
+
+			Graphics2D ig2 = bi.createGraphics();
 			ig2.setColor(new Color(93, 46, 16));
 
-			t1.draw(ig2);
-			t2.draw(ig2);
+			for (int i = trees.size() - 1; i >= 0; i--) {
+				trees.get(i).draw(ig2);
+			}
 
 			ImageIO.write(bi, "png", new File("van_gogh.png"));
 		} catch (IOException ie) {
@@ -72,8 +92,12 @@ public class ImageUtils {
 		AffineTransform transform = new AffineTransform();
 		transform.rotate(radians, bufferedImage.getWidth() / 2,
 				bufferedImage.getHeight() / 2);
-		AffineTransformOp op = new AffineTransformOp(transform,
-				AffineTransformOp.TYPE_BILINEAR);
-		return op.filter(bufferedImage, null);
+		try {
+			AffineTransformOp op = new AffineTransformOp(transform,
+					AffineTransformOp.TYPE_BILINEAR);
+			return op.filter(bufferedImage, null);
+		} catch (RasterFormatException e) {
+			return bufferedImage;
+		}
 	}
 }
