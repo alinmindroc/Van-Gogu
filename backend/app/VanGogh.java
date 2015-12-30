@@ -129,7 +129,7 @@ public class VanGogh {
 	public static void main(String[] args) {
 
 		if (args.length != 1) {
-			System.out.println("usage: java VanGogh <colorScheme>");
+			System.out.println("usage: java app.VanGogh <colorScheme>");
 			System.out.println("0 - spring");
 			System.out.println("1 - summer");
 			System.out.println("2 - autumn");
@@ -163,8 +163,9 @@ public class VanGogh {
 		ImageUtils.drawBackground(1000, 900, l);
 		ImageUtils.drawTrees(trees);
 
-		System.out.printf("%f seconds taken",
+		System.out.printf("%f seconds taken\n",
 				(System.currentTimeMillis() - start) / 1000.0);
+		System.out.printf("Result in %s", ImageUtils.resultPath);
 
 	}
 }

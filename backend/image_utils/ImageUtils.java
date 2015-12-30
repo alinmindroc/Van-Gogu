@@ -18,6 +18,8 @@ import app.Landscape;
 import app.Tree;
 
 public class ImageUtils {
+	public static String resultPath = "van_gogh.png";
+
 	public static void drawBackground(int width, int height, Landscape l) {
 		try {
 			BufferedImage bi = new BufferedImage(width, height,
@@ -38,7 +40,7 @@ public class ImageUtils {
 		try {
 			// TYPE_INT_ARGB specifies the image format: 8-bit RGBA packed
 			// into integer pixels
-			BufferedImage bi = ImageIO.read(new File("van_gogh.png"));
+			BufferedImage bi = ImageIO.read(new File(resultPath));
 
 			Graphics2D ig2 = bi.createGraphics();
 			ig2.setColor(new Color(93, 46, 16));
