@@ -4,3 +4,4 @@ logic/image_utils/*.class
 
 #generated images
 logic/*.png
+logic/results

@@ -1,11 +1,10 @@
  <!DOCTYPE html>
- <html ng-app="myApp">
+ <html ng-app="vanGogu">
 
  <head>
  	<title>Van Gogu</title>
  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
  	<script data-require="angular.js@1.2.7" data-semver="1.2.7" src="http://code.angularjs.org/1.2.7/angular.js"></script>
- 	<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 
  	<link href="/stylesheets/style_sass.css" rel="stylesheet" />
  	<link href="/stylesheets/style.css" rel="stylesheet" />
@@ -15,7 +14,7 @@
  </head>
  <body>
 
- 	<div ng-controller="myAppCtrl">	
+ 	<div ng-controller="vanGoguCtrl">	
  		<ul class="matrix">
  			<li></li>
  			<li></li>
@@ -69,12 +68,19 @@
  			<li></li>
  		</ul>
 
- 		<input style="width: 200px" ng-model="colorScheme" type="number" min=0 max=4 placeholder="Insert color scheme">
- 		<a href="#" class="myButton" ng-click="getPhoto()">Do the magic</a>
- 		<div id="progressbar"><div id="progress" ><div id="pbaranim"></div></div></div>
- 		<!-- <div ng-show="imageReady" style="" -->
- 		<!-- <img src="images/result.png" ng-show="imageReady" href="images/result.png"> -->
+ 		<div ng-hide="imageReady" style="margin-top: -500px; position: relative; z-index: 1;">
+ 			<input list="colorSchemes" style="width: 200px" ng-model="colorScheme" min=0 max=4 placeholder="Select color scheme">
+  			<datalist id="colorSchemes">
+  			  	<option value="Spring">
+  			  	<option value="Summer">
+  			  	<option value="Autumn">
+  			  	<option value="Winter">
+  			  	<option value="Alien">
+  			</datalist>
 
+ 			<a href="#" class="myButton" ng-click="getPhoto()">Do the magic</a>
+ 			<div id="progressbar"><div id="progress" ><div id="pbaranim"></div></div></div>
+ 		</div>
 
  		<h1 id="brace">
  			<span> B </span>
@@ -125,7 +131,7 @@
  		</h1>						
 
  		<div ng-show="imageReady" id="fullScreen"></div>
- 		<img ng-src='{{imageSrc}}' ng-show="imageReady" ng-click="imageReady=false" href="images/result.png">
+ 		<img ng-show="imageReady" ng-src='/images/result/{{imageName}}' ng-click="deleteImg(); imageReady=false">
  	</div>
  </body>
 

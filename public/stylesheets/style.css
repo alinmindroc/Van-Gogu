@@ -52,14 +52,15 @@ input {
 }
 
 #progressbar {
-  width: 80%;
+  margin: auto;
+  width: 75%;
+ 
+  margin-top: 10px;
   height: 15px;
   background-color: #eee;
   padding: 2px;
-  margin: .6em 0;
   border: 1px #000 double;
   clear: both;
-  margin-left: 10%;
 }
 
 #progress {

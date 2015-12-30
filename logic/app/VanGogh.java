@@ -128,8 +128,9 @@ public class VanGogh {
 
 	public static void main(String[] args) {
 
-		if (args.length != 1) {
-			System.out.println("usage: java app.VanGogh <colorScheme>");
+		if (args.length != 2) {
+			System.out
+					.println("usage: java app.VanGogh <colorScheme> <output_path>");
 			System.out.println("0 - spring");
 			System.out.println("1 - summer");
 			System.out.println("2 - autumn");
@@ -141,6 +142,7 @@ public class VanGogh {
 		long start = System.currentTimeMillis();
 
 		int colorScheme = Integer.parseInt(args[0]);
+		String resultPath = args[1];
 
 		Random rand = new Random();
 		crownAngleDegrees = rand.nextInt(10) - 5;
@@ -160,12 +162,12 @@ public class VanGogh {
 		trees = new ArrayList<>();
 		addTres(colorScheme);
 
-		ImageUtils.drawBackground(1000, 900, l);
-		ImageUtils.drawTrees(trees);
+		ImageUtils.drawBackground(1000, 900, l, resultPath);
+		ImageUtils.drawTrees(trees, resultPath);
 
 		System.out.printf("%f seconds taken\n",
 				(System.currentTimeMillis() - start) / 1000.0);
-		System.out.printf("Result in %s", ImageUtils.resultPath);
+		System.out.printf("Result in %s", resultPath);
 
 	}
 }

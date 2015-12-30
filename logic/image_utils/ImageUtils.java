@@ -18,9 +18,8 @@ import app.Landscape;
 import app.Tree;
 
 public class ImageUtils {
-	public static String resultPath = "van_gogh.png";
-
-	public static void drawBackground(int width, int height, Landscape l) {
+	public static void drawBackground(int width, int height, Landscape l,
+			String resultPath) {
 		try {
 			BufferedImage bi = new BufferedImage(width, height,
 					BufferedImage.TYPE_INT_ARGB);
@@ -29,14 +28,14 @@ public class ImageUtils {
 
 			l.draw(ig2);
 
-			ImageIO.write(bi, "png", new File("van_gogh.png"));
+			ImageIO.write(bi, "png", new File(resultPath));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public static void drawTrees(List<Tree> trees) {
+	public static void drawTrees(List<Tree> trees, String resultPath) {
 		try {
 			// TYPE_INT_ARGB specifies the image format: 8-bit RGBA packed
 			// into integer pixels
@@ -49,7 +48,7 @@ public class ImageUtils {
 				trees.get(i).draw(ig2);
 			}
 
-			ImageIO.write(bi, "png", new File("van_gogh.png"));
+			ImageIO.write(bi, "png", new File(resultPath));
 		} catch (IOException ie) {
 			ie.printStackTrace();
 		}
