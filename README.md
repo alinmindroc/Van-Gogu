@@ -37,3 +37,8 @@ Client: AngularJS, HTML, CSS, Javascript
 SDD: https://goo.gl/6EAwZ8  
 Gantt: TODO Miri/Mada  
 
+Link-uri:  
+[Generare copaci](http://www.jgallant.com/procedurally-generating-trees-with-space-colonization-algorithm-in-xna/)    
+[Generare textura nori](http://lodev.org/cgtutor/randomnoise.html)    
+[Generare munti cu fractali](http://nick-aschenbach.github.io/blog/2014/07/06/2d-fractal-terrain/)  
+
