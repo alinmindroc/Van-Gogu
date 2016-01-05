@@ -29,7 +29,7 @@ Taran Alexandra
 [Linkedin](https://ro.linkedin.com/in/alextaran)
 
 Tehnologii folosite:  
-Server: Python(PIL, NumPy)  
+Server: Java(java.awt pentru desenare), NodeJs pentru integrare backend - frontend 
 Client: AngularJS, HTML, CSS, Javascript  
 
 
