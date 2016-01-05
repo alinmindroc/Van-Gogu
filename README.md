@@ -28,12 +28,12 @@ Jalba Iulia
 Taran Alexandra 
 [Linkedin](https://ro.linkedin.com/in/alextaran)
 
-Tehnologii folosite:  
-Server: Java(java.awt pentru desenare), NodeJs pentru integrare backend - frontend 
+**Tehnologii folosite:**  
+Server: Java(java.awt pentru desenare), NodeJs pentru integrare backend - frontend   
 Client: AngularJS, HTML, CSS, Javascript  
 
 
-[Minut laborator 5](minut.txt)  
+**[Minut laborator 5](minut.txt)**  
 SDD: https://goo.gl/6EAwZ8  
 Gantt: TODO Miri/Mada  
 
