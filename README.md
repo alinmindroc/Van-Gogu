@@ -35,7 +35,7 @@ Client: AngularJS, HTML, CSS, Javascript
 
 **[Minut laborator 5](minut.txt)**  
 SDD: https://goo.gl/6EAwZ8  
-Gantt: TODO Miri/Mada  
+Gantt: https://goo.gl/V7AP44 and https://goo.gl/kfRIyz  
 
 Link-uri:  
 [Generare copaci](http://www.jgallant.com/procedurally-generating-trees-with-space-colonization-algorithm-in-xna/)    
