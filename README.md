@@ -28,14 +28,15 @@ Jalba Iulia
 Taran Alexandra 
 [Linkedin](https://ro.linkedin.com/in/alextaran)
 
-Tehnologii folosite:  
-Server: Python(PIL, NumPy)  
+**Tehnologii folosite:**  
+Server: Java(java.awt pentru desenare), NodeJs pentru integrare backend - frontend   
 Client: AngularJS, HTML, CSS, Javascript  
 
 
-[Minut laborator 5](minut.txt)  
+**[Minut laborator 5](minut.txt)**  
 SDD: https://goo.gl/6EAwZ8  
-Gantt: TODO Miri/Mada  
+Gantt: https://goo.gl/V7AP44   
+Tasks: https://goo.gl/kfRIyz  
 
 Link-uri:  
 [Generare copaci](http://www.jgallant.com/procedurally-generating-trees-with-space-colonization-algorithm-in-xna/)    
