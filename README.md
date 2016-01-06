@@ -33,7 +33,7 @@ Server: Java(java.awt pentru desenare), NodeJs pentru integrare backend - fronte
 Client: AngularJS, HTML, CSS, Javascript  
 
 
-**[Minut laborator 5](minut.txt)**  
+**[Minut laborator 5](minut.md)**  
 SDD: https://goo.gl/6EAwZ8  
 Gantt: https://goo.gl/V7AP44   
 Tasks: https://goo.gl/kfRIyz  
