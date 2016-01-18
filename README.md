@@ -2,6 +2,12 @@
 
 Draws a landscape procedurally. A leaf is drawn as a bezier curve, then the tree, sky texture and mountains are generated procedurally.   
 
+Install:  
+
+`npm install`  
+`cd logic && javac app/VanGogh.java`  
+`nodemon`  
+  
 Results:  
 <img src="screenshots/spring.png" width="32%" title="spring">
 <img src="screenshots/summer.png" width="32%" title="summer">
